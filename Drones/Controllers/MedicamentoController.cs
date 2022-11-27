@@ -25,6 +25,9 @@ namespace Drones.Controllers
         [HttpPost]
         public async Task<IActionResult> AddMedicamento(MedicamentoRequest medicamento)
         {
+            //Me ha costado trabajo encontrar una expresion regular para validar los datos de los medicamentos
+            //Es algo q nunca he hecho pero estoy trabajando todavia en ello
+
             var nuevoMedicamento = new Medicamento()
             {
                 nombre = medicamento.nombre,
