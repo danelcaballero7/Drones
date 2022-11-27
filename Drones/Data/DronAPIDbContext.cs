@@ -11,6 +11,7 @@ namespace Drones.Data
         }
         public DbSet<Dron> Drones { get; set; }
         public DbSet<Medicamento> Medicamentos { get; set; }
+        
 
     }
 }

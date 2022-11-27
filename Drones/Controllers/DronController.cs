@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Security.Claims;
+using Microsoft.AspNetCore.Mvc;
 using Drones.Data;
 using Drones.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -26,10 +28,19 @@ namespace Drones.Controllers
 
         }
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> AddDron(DronRequest dron)
         {
             try
             {
+                
+                var identity = HttpContext.User.Identity as ClaimsIdentity;
+                var rToken = Jwt.validarToken(identity);
+                if (!rToken.success) return rToken;
+                Usuario usuario = rToken.result;
+                if (usuario.rol != "administrador")
+                    throw new Exception("No tienes permisos para Realizar esta accion");
+
                 if(dron.serieNumber.Length> 100)
                     throw new BadHttpRequestException("El Numero de serie posee mas de 100 caracteres");
 
