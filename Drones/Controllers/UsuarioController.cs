@@ -44,7 +44,8 @@ namespace Drones.Controllers
                 new Claim(JwtRegisteredClaimNames.Jti,Guid.NewGuid().ToString()),
                 new Claim(JwtRegisteredClaimNames.Iat,DateTime.UtcNow.ToString()),
                 new Claim("id", usuario.idUsuario),
-                new Claim("usuario", usuario.usuario)
+                new Claim("usuario", usuario.usuario),
+                
             };
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwt.Key));
             var singIn = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
